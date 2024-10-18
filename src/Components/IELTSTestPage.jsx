@@ -78,7 +78,7 @@ const Navbar = ({ onGetStarted }) => { // Accept onGetStarted as a prop
           ))}
 
           <button className="nav-item-button">Sign in</button>
-          <button className="cta-button" onClick={onGetStarted}>Get Started</button> {/* Trigger navigation */}
+          <button className="cta-button" onClick={onGetStarted}>Get Started</button>
         </div>
       </div>
     </nav>
@@ -91,6 +91,10 @@ const IELTSTestPage = () => {
 
   const handleGetStarted = () => {
     navigate('/pay'); // Navigate to /pay
+  };
+
+  const handleStartTest = () => {
+    navigate('/test'); // Navigate to /test
   };
 
   return (
@@ -124,7 +128,7 @@ const IELTSTestPage = () => {
                 <span>AI-Powered Feedback</span>
               </div>
             </div>
-            <button className="card-button">Start Career Mode</button>
+            <button className="card-button" onClick={handleStartTest}>Start Career Mode</button>
           </div>
 
           <div
@@ -145,7 +149,7 @@ const IELTSTestPage = () => {
                 <span>Flexible Timing</span>
               </div>
             </div>
-            <button className="card-button">Start Practice Mode</button>
+            <button className="card-button" onClick={handleStartTest}>Start Practice Mode</button>
           </div>
         </div>
       </main>
