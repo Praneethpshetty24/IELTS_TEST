@@ -8,10 +8,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/home" element={<IELTSTestPage />} />
+        <Route path="/" element={<IELTSTestPage />} />
         <Route path="/pay" element={<Payments />} />
         <Route path="/test" element={<Test />} />
-        <Route path="/" element={<LogS />} />
+       
       </Routes>
     </Router>
   );

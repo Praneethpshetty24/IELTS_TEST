@@ -13,27 +13,27 @@ const LogS = () => {
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
-    setError(''); // Reset error message
+    setError('');
     try {
       await signInWithGoogle(); // Call your Google sign-in function
       navigate('/home'); // Navigate to /home on success
     } catch (error) {
-      setError(`Failed to sign in with Google: ${error.message}`); // Display specific error message
-      console.error("Google Sign-In Error:", error); // Log error details for debugging
+      setError('Failed to sign in with Google. Please try again.');
+      console.error("Google Sign-In Error:", error);
     }
     setIsLoading(false);
   };
 
   const handleEmailSignIn = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     setIsLoading(true);
-    setError(''); // Reset error message
+    setError('');
     try {
       await loginWithEmail(email, password); // Call your email login function
       navigate('/home'); // Navigate to /home on success
     } catch (error) {
-      setError(`Invalid email or password: ${error.message}`); // Display specific error message
-      console.error("Email Sign-In Error:", error); // Log error details for debugging
+      setError('Invalid email or password. Please try again.');
+      console.error("Email Sign-In Error:", error);
     }
     setIsLoading(false);
   };
@@ -138,7 +138,7 @@ const LogS = () => {
               onClick={() => console.log('Navigate to signup')}
               className="signup-link"
             >
-              Sign Up
+              
             </button>
           </p>
         </div>
