@@ -1,0 +1,193 @@
+/* LogS.css */
+
+/* Ensure styles are scoped to the login component */
+/* LogS.css */
+
+.login-page {
+    background-color: #f0f4f8; /* Light background color */
+    height: 100vh; /* Full height of the viewport */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-family: 'Arial', sans-serif; /* Font style */
+  }
+  
+  .login-card {
+    background: white; /* White card for contrast */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding: 30px; /* Inner spacing */
+    width: 400px; /* Fixed width for the card */
+    text-align: center; /* Center text */
+  }
+  
+  /* Other styles as needed... */
+  
+  .login-header {
+    margin-bottom: 20px; /* Space below header */
+  }
+  
+  .logo-icon {
+    width: 50px; /* Logo size */
+    height: 50px; /* Logo size */
+    color: #4a90e2; /* Logo color */
+  }
+  
+  .login-title {
+    font-size: 24px; /* Title size */
+    font-weight: bold; /* Bold title */
+    color: #333; /* Title color */
+    margin: 10px 0; /* Margin around title */
+  }
+  
+  .login-subtitle {
+    font-size: 14px; /* Subtitle size */
+    color: #777; /* Subtitle color */
+  }
+  
+  .error-message {
+    background-color: #ffdddd; /* Light red background for errors */
+    color: #d8000c; /* Dark red text */
+    padding: 10px; /* Inner spacing */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below error message */
+  }
+  
+  .google-signin-button {
+    background-color: #4285F4; /* Google button color */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 12px; /* Inner spacing */
+    width: 100%; /* Full width */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    display: flex; /* Flexbox for icon and text */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .google-signin-button:hover {
+    background-color: #357ae8; /* Darker on hover */
+  }
+  
+  .google-icon {
+    width: 20px; /* Icon size */
+    height: 20px; /* Icon size */
+    margin-right: 10px; /* Space between icon and text */
+  }
+  
+  .divider {
+    margin: 20px 0; /* Space around divider */
+    position: relative; /* Position relative for styling */
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px; /* Line height */
+    background-color: #ccc; /* Line color */
+  }
+  
+  .divider::before {
+    left: 0; /* Left line */
+  }
+  
+  .divider::after {
+    right: 0; /* Right line */
+  }
+  
+  .divider span {
+    display: inline-block; /* Center text in divider */
+    background-color: white; /* Background for text */
+    padding: 0 10px; /* Padding around text */
+    color: #666; /* Text color */
+    font-size: 14px; /* Font size */
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column; /* Column layout */
+  }
+  
+  .input-group {
+    display: flex; /* Flexbox for input and icon */
+    align-items: center; /* Center vertically */
+    margin-bottom: 15px; /* Space below input */
+  }
+  
+  .input-icon {
+    color: #888; /* Icon color */
+    margin-right: 10px; /* Space between icon and input */
+    width: 24px; /* Icon size */
+    height: 24px; /* Icon size */
+  }
+  
+  input[type="email"],
+  input[type="password"] {
+    flex: 1; /* Take remaining space */
+    padding: 10px; /* Inner spacing */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s; /* Smooth border transition */
+  }
+  
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #4a90e2; /* Border color on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .form-options {
+    display: flex; /* Flexbox for options */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center vertically */
+  }
+  
+  .remember-me {
+    font-size: 14px; /* Font size */
+    color: #555; /* Text color */
+  }
+  
+  .forgot-password {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #4a90e2; /* Link color */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 14px; /* Font size */
+  }
+  
+  .submit-button {
+    background-color: #4a90e2; /* Button color */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 12px; /* Inner spacing */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .submit-button:hover {
+    background-color: #357ae8; /* Darker on hover */
+  }
+  
+  .signup-prompt {
+    margin-top: 20px; /* Space above prompt */
+    font-size: 14px; /* Font size */
+    color: #555; /* Text color */
+  }
+  
+  .signup-link {
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #4a90e2; /* Link color */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 14px; /* Font size */
+  }
+  
