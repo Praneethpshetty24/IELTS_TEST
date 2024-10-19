@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import {
   BookOpen, Award, Clock, Star, Trophy, Brain,
-  BarChart, Rocket, ChevronDown, Layout, Headphones,
-  BookMarked, Users, Mail, Settings
+  Rocket, ChevronDown, MapPin, Check
 } from 'lucide-react';
-import './IELTSTestPage.css'; 
+import { useNavigate } from 'react-router-dom';
+import './IELTSTestPage.css';
 
-const Navbar = ({ onGetStarted }) => { // Accept onGetStarted as a prop
+const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,66 +17,38 @@ const Navbar = ({ onGetStarted }) => { // Accept onGetStarted as a prop
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = {
-    features: {
-      title: 'Features',
-      items: [
-        { icon: Layout, label: 'Test Modules', desc: 'Reading, Writing, Speaking & Listening' },
-        { icon: Headphones, label: 'Audio Labs', desc: 'Practice with real test scenarios' },
-        { icon: BookMarked, label: 'Study Material', desc: 'Comprehensive learning resources' },
-        { icon: BarChart, label: 'Progress Tracking', desc: 'Detailed performance analytics' }
-      ]
-    },
-    resources: {
-      title: 'Resources',
-      items: [
-        { icon: BookOpen, label: 'Study Guide', desc: 'Structured learning path' },
-        { icon: Users, label: 'Community', desc: 'Connect with other learners' },
-        { icon: Mail, label: 'Newsletter', desc: 'Weekly tips and updates' },
-        { icon: Settings, label: 'Tools', desc: 'Practice tools and utilities' }
-      ]
-    }
-  };
-
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <div className="nav-logo">
-          <Trophy className="nav-logo-icon" />
-          <span className="nav-logo-text">IELTS Prep</span>
+        <div className="nav-left">
+          {/* Logo */}
+          <div className="nav-logo">
+            <Trophy className="nav-logo-icon" />
+            <span className="nav-logo-text">IELTS Prep</span>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="nav-links">
+            {['Features', 'Resources', 'Solutions', 'Pricing'].map((item) => (
+              <button
+                key={item}
+                className="nav-link"
+              >
+                <span>{item}</span>
+                <ChevronDown className="nav-chevron" />
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="nav-items">
-          {Object.entries(navItems).map(([key, section]) => (
-            <div
-              key={key}
-              className="relative"
-              onMouseEnter={() => setActiveDropdown(key)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="nav-item-button">
-                <span>{section.title}</span>
-                <ChevronDown className="nav-dropdown-icon" />
-              </button>
-
-              {activeDropdown === key && (
-                <div className="nav-dropdown">
-                  {section.items.map((item, index) => (
-                    <a key={index} href="#" className="nav-dropdown-item">
-                      <item.icon className="nav-dropdown-icon" />
-                      <div>
-                        <div className="nav-dropdown-text">{item.label}</div>
-                        <div className="nav-dropdown-desc">{item.desc}</div>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <button className="nav-item-button">Sign in</button>
-          <button className="cta-button" onClick={onGetStarted}>Get Started</button>
+        {/* Auth Buttons */}
+        <div className="nav-auth">
+          <button className="sign-in-btn" onClick={onSignIn}>
+            Sign in
+          </button>
+          <button className="get-started-btn" onClick={onGetStarted}>
+            Get Started
+          </button>
         </div>
       </div>
     </nav>
@@ -86,71 +56,122 @@ const Navbar = ({ onGetStarted }) => { // Accept onGetStarted as a prop
 };
 
 const IELTSTestPage = () => {
-  const [hoveredMode, setHoveredMode] = useState(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/pay'); // Navigate to /pay
+    navigate('/pay'); // Navigate to /pay when 'Get Started' is clicked
+  };
+
+  const handleSignIn = () => {
+    navigate('/'); // Navigate to /log when 'Sign In' is clicked
+  };
+
+  const handleStartCareerMode = () => {
+    navigate('/'); // Navigate to /log when 'Start Career Mode' is clicked
+  };
+
+  const handleStartPracticeMode = () => {
+    navigate('/'); // Navigate to /log when 'Start Practice Mode' is clicked
   };
 
   const handleStartTest = () => {
-    navigate('/test'); // Navigate to /test
+    navigate('/test'); // Navigate to /test when 'Ready to start' is clicked
   };
 
+  const features = [
+    {
+      icon: Award,
+      title: "Career Mode",
+      description: "Achieve a high score to boost your career opportunities worldwide.",
+      features: [
+        { icon: Star, text: "Performance Insights" },
+        { icon: Brain, text: "AI-Powered Feedback" }
+      ],
+      onStart: handleStartCareerMode
+    },
+    {
+      icon: Rocket,
+      title: "Practice Mode",
+      description: "Test your skills and improve with unlimited practice questions.",
+      features: [
+        { icon: BookOpen, text: "Unlimited Tests" },
+        { icon: Clock, text: "Flexible Timing" }
+      ],
+      onStart: handleStartPracticeMode
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navbar onGetStarted={handleGetStarted} /> {/* Pass down the handler to Navbar */}
+    <div className="page-container">
+      <PerlaStyleNavbar onGetStarted={handleGetStarted} onSignIn={handleSignIn} />
       
-      <header className="header">
-        <h1 className="header-title">IELTS Test Preparation</h1>
-        <p className="header-desc">
-          Achieve your dream IELTS score with personalized tests and real-time feedback.
-        </p>
-      </header>
-
-      <main>
-        <div className="cards-container">
-          <div
-            className="card"
-            onMouseEnter={() => setHoveredMode('career')}
-            onMouseLeave={() => setHoveredMode(null)}
-          >
-            <Award className="card-icon" />
-            <h3 className="card-title">Career Mode</h3>
-            <p className="card-desc">Achieve a high score to boost your career opportunities worldwide.</p>
-            <div className="card-features">
-              <div className="card-feature">
-                <Star className="card-feature-icon" />
-                <span>Performance Insights</span>
-              </div>
-              <div className="card-feature">
-                <Brain className="card-feature-icon" />
-                <span>AI-Powered Feedback</span>
-              </div>
-            </div>
-            <button className="card-button" onClick={handleStartTest}>Start Career Mode</button>
+      {/* Hero Section */}
+      <main className="main-content">
+        <div className="hero-section">
+          {/* Left Column */}
+          <div className="hero-text">
+            <h1 className="hero-title">
+              IELTS Test Preparation
+            </h1>
+            <p className="hero-description">
+              Achieve your dream IELTS score with personalized tests and real-time feedback.
+            </p>
           </div>
 
-          <div
-            className="card"
-            onMouseEnter={() => setHoveredMode('practice')}
-            onMouseLeave={() => setHoveredMode(null)}
-          >
-            <Rocket className="card-icon" />
-            <h3 className="card-title">Practice Mode</h3>
-            <p className="card-desc">Test your skills and improve with unlimited practice questions.</p>
-            <div className="card-features">
-              <div className="card-feature">
-                <BookOpen className="card-feature-icon" />
-                <span>Unlimited Tests</span>
-              </div>
-              <div className="card-feature">
-                <Clock className="card-feature-icon" />
-                <span>Flexible Timing</span>
+          {/* Right Column - Feature Preview */}
+          <div className="feature-preview">
+            <div className="preview-badge">
+              <MapPin className="preview-icon" />
+              <span>Test Module Preview</span>
+            </div>
+
+            {/* Module Features */}
+            <div className="module-features">
+              <h3 className="features-title">Available Modules</h3>
+              <div className="features-grid">
+                <span className="feature-tag">Reading</span>
+                <span className="feature-tag">Writing</span>
+                <span className="feature-tag">Speaking</span>
+                <span className="feature-tag">Listening</span>
               </div>
             </div>
-            <button className="card-button" onClick={handleStartTest}>Start Practice Mode</button>
+
+            <div className="status-badge" onClick={handleStartTest}>
+              <Check className="status-icon" />
+              <span>Ready to start</span>
+            </div>
           </div>
+        </div>
+
+        {/* Cards Section */}
+        <div className="cards-grid">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className={`feature-card ${hoveredCard === index ? 'hovered' : ''}`}
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
+            >
+              <feature.icon className="card-icon" />
+              <h3 className="card-title">{feature.title}</h3>
+              <p className="card-description">{feature.description}</p>
+              
+              <div className="card-features">
+                {feature.features.map((item, i) => (
+                  <div key={i} className="card-feature">
+                    <item.icon className="feature-icon" />
+                    <span className="feature-text">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <button className="start-button" onClick={feature.onStart}>
+                Start {feature.title}
+              </button>
+              
+            </div>
+          ))}
         </div>
       </main>
     </div>
