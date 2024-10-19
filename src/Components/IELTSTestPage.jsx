@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-  BookOpen, Award, Clock, Star, Trophy, Brain,
-  Rocket, ChevronDown, MapPin, Check
-} from 'lucide-react';
+import { BookOpen, Award, Clock, Star, Trophy, Brain, Rocket, ChevronDown, MapPin, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import './IELTSTestPage.css';
 
 const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +14,20 @@ const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const auth = getAuth();
+    // Check if the user is signed in
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        setIsUserSignedIn(true);
+      } else {
+        // No user is signed in
+        setIsUserSignedIn(false);
+      }
+    });
   }, []);
 
   return (
@@ -30,10 +43,7 @@ const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
           {/* Navigation Links */}
           <div className="nav-links">
             {['Features', 'Resources', 'Solutions', 'Pricing'].map((item) => (
-              <button
-                key={item}
-                className="nav-link"
-              >
+              <button key={item} className="nav-link">
                 <span>{item}</span>
                 <ChevronDown className="nav-chevron" />
               </button>
@@ -43,9 +53,11 @@ const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
 
         {/* Auth Buttons */}
         <div className="nav-auth">
-          <button className="sign-in-btn" onClick={onSignIn}>
-            Sign in
-          </button>
+          {!isUserSignedIn && (
+            <button className="sign-in-btn" onClick={onSignIn}>
+              Sign in
+            </button>
+          )}
           <button className="get-started-btn" onClick={onGetStarted}>
             Get Started
           </button>
@@ -56,7 +68,6 @@ const PerlaStyleNavbar = ({ onGetStarted, onSignIn }) => {
 };
 
 const IELTSTestPage = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
@@ -88,7 +99,7 @@ const IELTSTestPage = () => {
         { icon: Star, text: "Performance Insights" },
         { icon: Brain, text: "AI-Powered Feedback" }
       ],
-      onStart: handleStartCareerMode
+      onStart: handleStartCareerMode,
     },
     {
       icon: Rocket,
@@ -98,35 +109,27 @@ const IELTSTestPage = () => {
         { icon: BookOpen, text: "Unlimited Tests" },
         { icon: Clock, text: "Flexible Timing" }
       ],
-      onStart: handleStartPracticeMode
-    }
+      onStart: handleStartPracticeMode,
+    },
   ];
 
   return (
     <div className="page-container">
       <PerlaStyleNavbar onGetStarted={handleGetStarted} onSignIn={handleSignIn} />
-      
       {/* Hero Section */}
       <main className="main-content">
         <div className="hero-section">
-          {/* Left Column */}
           <div className="hero-text">
-            <h1 className="hero-title">
-              IELTS Test Preparation
-            </h1>
+            <h1 className="hero-title">IELTS Test Preparation</h1>
             <p className="hero-description">
               Achieve your dream IELTS score with personalized tests and real-time feedback.
             </p>
           </div>
-
-          {/* Right Column - Feature Preview */}
           <div className="feature-preview">
             <div className="preview-badge">
               <MapPin className="preview-icon" />
               <span>Test Module Preview</span>
             </div>
-
-            {/* Module Features */}
             <div className="module-features">
               <h3 className="features-title">Available Modules</h3>
               <div className="features-grid">
@@ -136,7 +139,6 @@ const IELTSTestPage = () => {
                 <span className="feature-tag">Listening</span>
               </div>
             </div>
-
             <div className="status-badge" onClick={handleStartTest}>
               <Check className="status-icon" />
               <span>Ready to start</span>
@@ -147,16 +149,10 @@ const IELTSTestPage = () => {
         {/* Cards Section */}
         <div className="cards-grid">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className={`feature-card ${hoveredCard === index ? 'hovered' : ''}`}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
+            <div key={index} className="feature-card">
               <feature.icon className="card-icon" />
               <h3 className="card-title">{feature.title}</h3>
               <p className="card-description">{feature.description}</p>
-              
               <div className="card-features">
                 {feature.features.map((item, i) => (
                   <div key={i} className="card-feature">
@@ -165,11 +161,9 @@ const IELTSTestPage = () => {
                   </div>
                 ))}
               </div>
-              
               <button className="start-button" onClick={feature.onStart}>
                 Start {feature.title}
               </button>
-              
             </div>
           ))}
         </div>

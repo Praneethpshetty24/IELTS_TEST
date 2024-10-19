@@ -7,7 +7,7 @@
   align-items: center; /* Center vertically */
   font-family: 'Arial', sans-serif; /* Font style */
   padding: 10px; /* Small padding for mobile responsiveness */
-  margin-left: 440px;
+  margin-left: 420px;
   
 }
 
@@ -58,7 +58,7 @@
 
 /* Google sign-in button */
 .google-signin-button {
-  background-color: #4285F4;
+  background-color: #6f7f98;
   color: white;
   border: none;
   border-radius: 5px;
@@ -171,7 +171,7 @@ input[type="password"]:focus {
 
 /* Submit button */
 .submit-button {
-  background-color: #4a90e2;
+  background-color: #647383;
   color: white;
   border: none;
   border-radius: 5px;
