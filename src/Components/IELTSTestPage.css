@@ -2,6 +2,7 @@
 
 .page-container {
   min-height: 100vh;
+  min-width :200vh;
   background-color: #111827;
 }
 
