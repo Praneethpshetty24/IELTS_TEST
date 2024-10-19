@@ -64,7 +64,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: #4B5563; /* Dark gray for links */
+  color: #f6f8fc; /* Dark gray for links */
   transition: color 0.3s ease;
 }
 
@@ -79,7 +79,7 @@ body {
 }
 
 .sign-in-btn {
-  color: #4B5563; /* Dark gray for sign-in button */
+  color: #edeef0; /* Dark gray for sign-in button */
   transition: color 0.3s ease;
 }
 
