@@ -16,7 +16,7 @@ const LogS = () => {
     setError('');
     try {
       await signInWithGoogle(); // Call your Google sign-in function
-      navigate('/home'); // Navigate to /home on success
+      navigate('/'); // Navigate to /home on success
     } catch (error) {
       setError('Failed to sign in with Google. Please try again.');
       console.error("Google Sign-In Error:", error);
@@ -30,7 +30,7 @@ const LogS = () => {
     setError('');
     try {
       await loginWithEmail(email, password); // Call your email login function
-      navigate('/home'); // Navigate to /home on success
+      navigate('/'); // Navigate to /home on success
     } catch (error) {
       setError('Invalid email or password. Please try again.');
       console.error("Email Sign-In Error:", error);

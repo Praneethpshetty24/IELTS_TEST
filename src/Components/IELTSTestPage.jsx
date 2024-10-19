@@ -64,15 +64,15 @@ const IELTSTestPage = () => {
   };
 
   const handleSignIn = () => {
-    navigate('/'); // Navigate to /log when 'Sign In' is clicked
+    navigate('/log'); // Navigate to /log when 'Sign In' is clicked
   };
 
   const handleStartCareerMode = () => {
-    navigate('/'); // Navigate to /log when 'Start Career Mode' is clicked
+    navigate('/log'); // Navigate to /log when 'Start Career Mode' is clicked
   };
 
   const handleStartPracticeMode = () => {
-    navigate('/'); // Navigate to /log when 'Start Practice Mode' is clicked
+    navigate('/log'); // Navigate to /log when 'Start Practice Mode' is clicked
   };
 
   const handleStartTest = () => {
