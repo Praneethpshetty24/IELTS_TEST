@@ -1,152 +1,144 @@
-/* General Container */
-.test-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%);
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Test Card */
-.test-card {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 2.5rem;
-  transition: transform 0.3s;
-}
-
-.test-card:hover {
-  transform: translateY(-5px);
-}
-
-/* Header */
-.test-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-family: 'Arial', sans-serif;
-  color: #1f2937;
-}
-
-.test-header h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.test-header p {
-  font-size: 1rem;
-  color: #6b7280;
-}
-
-/* Progress Indicator */
-.progress-indicator {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.progress-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: gray;
-  margin: 0 8px;
-  transition: background 0.3s;
-}
-
-.progress-dot.active {
-  background: #3b82f6;
-}
-
-/* Question Container */
-.question-container {
-  margin-bottom: 2rem;
-}
-
-/* Question Text */
-.question-text {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: #1f2937;
-}
-
-/* Options Grid */
-.options-grid {
+/* Add a unique class for the Tests component */
+.tests-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  color: black; /* Set default text color to black */
 }
 
-.option-item {
+.tests-header {
+  text-align: center;
+}
+
+.tests-main-content {
   display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 0.75rem;
-  border: 1px solid #e5e7eb;
+  margin-top: 20px;
+  height: 70vh; /* Ensures a fixed height for the content area */
+}
+
+.tests-passage-section {
+  flex: 1; /* Allows the passage to take up remaining space */
+  margin-right: 20px;
+  overflow-y: auto; /* Enables vertical scroll */
+  padding: 15px;
+  background-color: #fff; /* Background for readability */
   border-radius: 8px;
-  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.option-item:hover {
-  background: #e0f7fa;
-  transform: scale(1.02);
-}
-
-.option-item.selected {
-  background: #e0f7fa;
-  border-color: #3b82f6;
-}
-
-/* Writing Input */
-.writing-input {
-  width: 100%;
-  height: 120px;
-  padding: 0.75rem;
-  border: 1px solid #e5e7eb;
+.tests-questions-section {
+  flex: 1; /* Allows the questions section to take up remaining space */
+  overflow-y: auto; /* Enables vertical scroll */
+  padding: 15px;
+  background-color: #fff; /* Background for readability */
   border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.writing-input:focus {
-  border-color: #3b82f6;
-  outline: none;
+.tests-question-item {
+  margin: 15px 0;
 }
 
-/* Navigation Buttons */
-.navigation-buttons {
+.tests-options {
+  margin-left: 20px;
+}
+
+.tests-option {
+  display: block;
+  margin: 5px 0;
+}
+
+.tests-navigation {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  margin-top: 20px;
 }
 
-.nav-button {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+.tests-nav-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tests-nav-button,
+.tests-review-button {
+  padding: 10px 15px;
   border: none;
+  border-radius: 5px;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
 }
 
-.nav-button.primary {
-  background: #3b82f6;
+.tests-review-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.nav-button.primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
+.tests-review-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  overflow-y: auto; /* Allows scroll in review panel */
+  color: black; /* Ensure text color in review panel is black */
 }
 
-.nav-button.secondary {
-  background: #9ca3af;
+.tests-review-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-.nav-button.secondary:hover {
-  background: #6b7280;
-  transform: translateY(-2px);
+.tests-close-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tests-question-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tests-question-button {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+.tests-question-button.answered {
+  background-color: #d4edda;
+}
+
+.tests-review-legend {
+  margin-top: 20px;
+}
+
+.tests-legend-item {
+  display: flex;
+  align-items: center;
+}
+
+.tests-legend-color {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.tests-legend-color.answered {
+  background-color: #d4edda;
 }
