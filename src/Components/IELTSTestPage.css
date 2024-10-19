@@ -60,17 +60,22 @@ body {
   gap: 1.5rem;
 }
 
+
 .nav-link {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: #f6f8fc; /* Dark gray for links */
-  transition: color 0.3s ease;
+  color: #f6f8fc; /* Default color */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Transition for both color and background */
+  background-color: transparent; /* Ensure transparent background by default */
+  padding: 0.5rem; /* Optional padding for better click area */
 }
 
 .nav-link:hover {
-  color: #3B82F6; /* Color change on hover */
+  color: #3f4042; /* Color change on hover */
+  background-color: rgba(0, 0, 0, 0.1); /* Optional light background on hover */
 }
+
 
 .nav-auth {
   display: flex;
