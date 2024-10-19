@@ -1,29 +1,13 @@
-/* Base Styles for Consistency */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px; /* Consistent base font size */
-}
-
 body {
-  font-family: 'Arial', sans-serif; /* Ensure a consistent fallback font */
-  color: #D1D5DB; /* Default text color */
-  background-color: #111827; /* Default background color */
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white; /* White background for the whole page */
 }
 
-/* Page Container */
 .page-container {
   min-height: 100vh;
-  background-color: #111827;
+  background-color: white; /* White background for the page container */
+  padding: 1rem; /* Optional padding */
 }
 
 /* Navbar Styles */
@@ -33,10 +17,8 @@ body {
   width: 100%;
   z-index: 50;
   transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-  background-color: #111827;
+  background-color: white; /* Navbar background set to white */
+  border-bottom: 1px solid #e5e7eb; /* Light border for the navbar */
 }
 
 .nav-container {
@@ -64,13 +46,13 @@ body {
 .nav-logo-icon {
   width: 2rem;
   height: 2rem;
-  color: #3B82F6;
+  color: #080808; /* Logo color */
 }
 
 .nav-logo-text {
   font-size: 1.25rem;
   font-weight: bold;
-  color: white;
+  color: black; /* Logo text color */
 }
 
 .nav-links {
@@ -82,17 +64,12 @@ body {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: #D1D5DB;
+  color: #4B5563; /* Dark gray for links */
   transition: color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #3B82F6;
-}
-
-.nav-chevron {
-  width: 1rem;
-  height: 1rem;
+  color: #3B82F6; /* Color change on hover */
 }
 
 .nav-auth {
@@ -102,24 +79,25 @@ body {
 }
 
 .sign-in-btn {
-  color: #D1D5DB;
+  color: #4B5563; /* Dark gray for sign-in button */
   transition: color 0.3s ease;
 }
 
 .sign-in-btn:hover {
-  color: white;
+  color: #3B82F6; /* Color change on hover */
 }
 
 .get-started-btn {
   padding: 0.5rem 1rem;
-  background-color: #3B82F6;
-  color: white;
+  background-color: #0a0b0b; /* Blue button */
+  color: white; /* White text inside button */
   border-radius: 0.5rem;
   transition: background-color 0.3s ease;
+  border: none; /* No border for button */
 }
 
 .get-started-btn:hover {
-  background-color: #2563EB;
+  background-color: #0d0d0e; /* Darker blue for hover effect */
 }
 
 /* Main Content Styles */
@@ -144,20 +122,21 @@ body {
 .hero-title {
   font-size: 3.75rem;
   font-weight: bold;
-  color: white;
+  color: black; /* Title color */
   line-height: 1.1;
   margin-bottom: 1.5rem;
 }
 
 .hero-description {
   font-size: 1.25rem;
-  color: #D1D5DB;
+  color: #101011; /* Dark gray for description */
 }
 
 /* Feature Preview */
 .feature-preview {
   width: 24rem;
-  background-color: #1F2937;
+  background-color: white; /* White background for preview sections */
+  border: 1px solid #e5e7eb; /* Border for preview sections */
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -167,7 +146,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #3B82F6;
+  background-color: #0f0f10; /* Blue background for badge */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
@@ -175,17 +154,12 @@ body {
   margin-bottom: 1rem;
 }
 
-.preview-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
 .module-features {
   margin-bottom: 1.5rem;
 }
 
 .features-title {
-  color: #D1D5DB;
+  color: #101112; /* Dark gray for features title */
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
@@ -197,8 +171,8 @@ body {
 }
 
 .feature-tag {
-  background-color: #374151;
-  color: #D1D5DB;
+  background-color: #0d0d0e; /* Dark background for tags */
+  color: #D1D5DB; /* Light color for tags */
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -208,16 +182,11 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #3B82F6;
+  background-color: #0a0a0b; /* Blue background for status badge */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   width: fit-content;
-}
-
-.status-icon {
-  width: 1rem;
-  height: 1rem;
 }
 
 /* Cards Grid */
@@ -228,7 +197,8 @@ body {
 }
 
 .feature-card {
-  background-color: #1F2937;
+  background-color: white; /* White background for feature cards */
+  border: 1px solid #e5e7eb; /* Border for feature cards */
   border-radius: 1rem;
   padding: 2rem;
   transition: all 0.3s ease;
@@ -242,19 +212,19 @@ body {
 .card-icon {
   width: 3rem;
   height: 3rem;
-  color: #3B82F6;
+  color: #111213; /* Icon color */
   margin-bottom: 1.5rem;
 }
 
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: black; /* Card title color */
   margin-bottom: 1rem;
 }
 
 .card-description {
-  color: #D1D5DB;
+  color: #171819; /* Dark gray for card description */
   margin-bottom: 2rem;
 }
 
@@ -274,25 +244,26 @@ body {
 .feature-icon {
   width: 1.25rem;
   height: 1.25rem;
-  color: #3B82F6;
+  color: #09090a; /* Feature icon color */
 }
 
 .feature-text {
-  color: #D1D5DB;
+  color: #090909; /* Dark gray for feature text */
 }
 
 .start-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #3B82F6;
-  color: white;
+  background-color: #070708; /* Blue button */
+  color: white; /* White text inside button */
   border-radius: 40px;
   margin-top: 10px;
   transition: background-color 0.3s ease;
+  border: none; /* No border for button */
 }
 
 .start-button:hover {
-  background-color: #2563EB;
+  background-color: #101010; /* Darker blue for hover effect */
 }
 
 /* Responsive Adjustments */
