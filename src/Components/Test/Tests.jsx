@@ -83,7 +83,7 @@ The Romans also made significant contributions to science and technology. They d
         <h2>IELTS Reading Test Rules</h2>
         <div className="tests-rules-content">
           <ul>
-            <li>You have 60 minutes to complete the reading test</li>
+            <li>You have 10 minutes to complete the reading test</li>
             <li>You must complete all questions within the time limit</li>
             <li>Each question is worth one mark</li>
             <li>You can review and change your answers at any time during the test</li>
