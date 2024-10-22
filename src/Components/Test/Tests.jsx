@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, List, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, List, X, Clock } from 'lucide-react';
+import './Tests.css';
 
 const Tests = () => {
   const [currentSection, setCurrentSection] = useState(0);
@@ -18,7 +19,7 @@ const Tests = () => {
   }, [timeLeft, showRules]);
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
+    const minutes = Math.floor(seconds / 340);
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
@@ -76,18 +77,13 @@ The Romans also made significant contributions to science and technology. They d
     }));
   };
 
-  const handleSubmitTest = () => {
-    // Add your submit logic here
-    console.log('Test submitted:', answers);
-  };
-
   const RulesPanel = () => (
     <div className="tests-rules-overlay">
       <div className="tests-rules-panel">
         <h2>IELTS Reading Test Rules</h2>
         <div className="tests-rules-content">
           <ul>
-            <li>You have 60 minutes to complete the reading test</li>
+            <li>You have 10 minutes to complete the reading test</li>
             <li>You must complete all questions within the time limit</li>
             <li>Each question is worth one mark</li>
             <li>You can review and change your answers at any time during the test</li>
@@ -144,50 +140,21 @@ The Romans also made significant contributions to science and technology. They d
 
   return (
     <div className="tests-container">
-      <nav className="tests-nav">
-        <div className="tests-nav-content">
-          <div className="tests-parts">
-            <button 
-              className={`tests-part-button ${currentSection === 0 ? 'active' : ''}`}
-              onClick={() => setCurrentSection(0)}
-            >
-              Part 1
-            </button>
-            <button 
-              className={`tests-part-button ${currentSection === 1 ? 'active' : ''}`}
-              onClick={() => setCurrentSection(1)}
-            >
-              Part 2
-            </button>
-          </div>
-          
-          <div className="tests-timer">
-            <Clock size={20} />
-            <span className={timeLeft < 300 ? 'time-warning' : ''}>
-              {formatTime(timeLeft)}
-            </span>
-          </div>
-          
-          <div className="tests-nav-actions">
-            <button
-              onClick={() => setShowReview(true)}
-              className="tests-review-button"
-            >
-              <List size={16} /> Review
-            </button>
-            <button 
-              className="tests-submit-button"
-              onClick={handleSubmitTest}
-            >
-              Submit Test
-            </button>
-          </div>
-        </div>
-      </nav>
-
       <header className="tests-header">
         <h1>IELTS Reading Test</h1>
         <p className="tests-subheader">Academic Module</p>
+        <div className="tests-timer">
+        <button
+              onClick={() => setShowReview(true)}
+              className="tests-review-button"
+            >
+              <List size={16} /> Review Questions
+            </button>
+          <Clock size={20} />
+          <span className={timeLeft < 300 ? 'time-warning' : ''}>
+            {formatTime(timeLeft)}
+          </span>
+        </div>
       </header>
       
       <div className="tests-content">
@@ -224,6 +191,25 @@ The Romans also made significant contributions to science and technology. They d
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="tests-navigation">
+            <div className="tests-nav-buttons">
+              <button
+                onClick={() => setCurrentSection(prev => Math.max(0, prev - 1))}
+                disabled={currentSection === 0}
+                className="tests-nav-button"
+              >
+                <ChevronLeft /> Previous
+              </button>
+              <button
+                onClick={() => setCurrentSection(prev => Math.min(1, prev + 1))}
+                disabled={currentSection === 1}
+                className="tests-nav-button"
+              >
+                Next <ChevronRight />
+              </button>
+            </div>
           </div>
         </div>
       </div>
