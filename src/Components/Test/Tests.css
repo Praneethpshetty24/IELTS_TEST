@@ -1,3 +1,5 @@
+/* Tests.css */
+
 .tests-container {
   min-height: 100vh;
   background-color: #f8f9fa;
@@ -135,7 +137,8 @@
 }
 
 .tests-rules-overlay,
-.tests-review-overlay {
+.tests-review-overlay,
+.tests-results-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -149,16 +152,18 @@
 }
 
 .tests-rules-panel,
-.tests-review-panel {
+.tests-review-panel,
+.tests-results-panel {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
   max-width: 600px;
-  width: 100%;
+  width: 90%;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.tests-review-header {
+.tests-review-header,
+.tests-results-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -224,4 +229,62 @@
 
 .tests-start-button:hover {
   background-color: #218838;
+}
+
+/* Results Panel Styling */
+.tests-results-panel {
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.tests-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tests-results-header h2 {
+  margin: 0;
+}
+
+.tests-results-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.tests-results-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745; /* Green for score */
+}
+
+.tests-results-detail {
+  margin-top: 1rem;
+}
+
+.tests-results-detail p {
+  margin: 0.5rem 0;
+}
+
+.tests-results-button {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.tests-results-button:hover {
+  background-color: #0056b3;
 }

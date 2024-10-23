@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, List, X, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Tests.css';
 
 const Tests = () => {
+  const navigate = useNavigate(); // Initialize navigate
   const [currentSection, setCurrentSection] = useState(0);
   const [showReview, setShowReview] = useState(false);
   const [showRules, setShowRules] = useState(true);
   const [answers, setAnswers] = useState({});
-  const [timeLeft, setTimeLeft] = useState(60 * 60); // 60 minutes in seconds
-  
+  const [timeLeft, setTimeLeft] = useState(10 * 60);
+  const [showResults, setShowResults] = useState(false);
+  const [score, setScore] = useState(0);
+
   useEffect(() => {
-    if (timeLeft > 0 && !showRules) {
+    if (timeLeft > 0 && !showRules && !showResults) {
       const timer = setInterval(() => {
         setTimeLeft(prev => prev - 1);
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [timeLeft, showRules]);
+  }, [timeLeft, showRules, showResults]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -26,11 +30,12 @@ const Tests = () => {
 
   const passage = `The Roman Empire was one of the largest and most influential civilizations in world history. At its height, it encompassed territories stretching from Britain to Egypt, from Spain to Iraq. The Romans were master builders and engineers, constructing vast networks of roads, aqueducts, and magnificent buildings, many of which still stand today.
 
-The Roman army was a crucial factor in the empire's success. It was highly disciplined and well-organized, with sophisticated tactics and equipment. Roman soldiers were not just warriors but also builders and engineers. They constructed roads, bridges, and fortifications wherever they went, helping to connect and consolidate the vast empire.
+  The Roman army was a crucial factor in the empire's success. It was highly disciplined and well-organized, with sophisticated tactics and equipment. Roman soldiers were not just warriors but also builders and engineers. They constructed roads, bridges, and fortifications wherever they went, helping to connect and consolidate the vast empire.
 
-Roman culture and society were highly sophisticated. The Romans developed a complex legal system that forms the basis of many modern legal codes. They were also great admirers of Greek culture, adopting and adapting many aspects of Greek art, architecture, and philosophy. Roman literature, art, and architecture have had a lasting influence on Western civilization.
+  Roman culture and society were highly sophisticated. The Romans developed a complex legal system that forms the basis of many modern legal codes. They were also great admirers of Greek culture, adopting and adapting many aspects of Greek art, architecture, and philosophy. Roman literature, art, and architecture have had a lasting influence on Western civilization.
 
-The Romans also made significant contributions to science and technology. They developed advanced construction techniques, including the use of concrete and the arch, which allowed them to build massive structures like the Colosseum and the Pantheon. They also made advances in medicine, agriculture, and urban planning.`;
+  The Romans also made significant contributions to science and technology. They developed advanced construction techniques, including the use of concrete and the arch, which allowed them to build massive structures like the Colosseum and the Pantheon. They also made advances in medicine, agriculture, and urban planning.`;
+
 
   const questions = [
     {
@@ -75,6 +80,12 @@ The Romans also made significant contributions to science and technology. They d
       ...prev,
       [questionId]: answer
     }));
+  };
+
+  const calculateScore = () => {
+    const correctAnswers = questions.filter((q) => answers[q.id] === q.answer).length;
+    setScore(correctAnswers);
+    setShowResults(true);
   };
 
   const RulesPanel = () => (
@@ -138,6 +149,26 @@ The Romans also made significant contributions to science and technology. They d
     </div>
   );
 
+  const ResultsPanel = () => (
+    <div className="tests-results-overlay">
+      <div className="tests-results-panel">
+        <h2>Your Results</h2>
+        <p>You answered {score} out of {questions.length} questions correctly.</p>
+        <button onClick={() => {
+          setShowResults(false);
+          setShowRules(true);
+          setAnswers({});
+          setTimeLeft(10 * 60);
+          setCurrentSection(0);
+          setScore(0);
+        }}>
+          Restart Test
+        </button>
+        <button onClick={() => navigate('/')}>Back</button> {/* Corrected this line */}
+      </div>
+    </div>
+  );
+
   return (
     <div className="tests-container">
       <header className="tests-header">
@@ -153,69 +184,72 @@ The Romans also made significant contributions to science and technology. They d
           >
             <List size={16} /> Review Questions
           </button>
-          <button>Submit</button>
+          <button onClick={calculateScore}>Submit</button>
         </div>
       </header>
       
-      <div className="tests-content">
-        <div className="tests-passage">
-          <h2>Reading Passage</h2>
-          <div className="tests-passage-text">
-            {passage.split('\n\n').map((paragraph, idx) => (
-              <p key={idx}>{paragraph}</p>
-            ))}
+      {!showResults && (
+        <div className="tests-content">
+          <div className="tests-passage">
+            <h2>Reading Passage</h2>
+            <div className="tests-passage-text">
+              {passage.split('\n\n').map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="tests-questions">
-          <h2>Questions {currentSection * 5 + 1}-{currentSection * 5 + 5}</h2>
-          <div className="tests-questions-list">
-            {questions.slice(currentSection * 5, (currentSection + 1) * 5).map((q) => (
-              <div key={q.id} className="tests-question">
-                <p className="tests-question-text">
-                  <span className="tests-question-number">{q.id}.</span> {q.question}
-                </p>
-                <div className="tests-options">
-                  {q.options.map((option, idx) => (
-                    <label key={idx} className="tests-option">
-                      <input
-                        type="radio"
-                        name={`question-${q.id}`}
-                        value={idx}
-                        checked={answers[q.id] === idx}
-                        onChange={() => handleAnswerChange(q.id, idx)}
-                      />
-                      <span>{option}</span>
-                    </label>
-                  ))}
+          <div className="tests-questions">
+            <h2>Questions {currentSection * 5 + 1}-{Math.min((currentSection + 1) * 5, questions.length)}</h2>
+            <div className="tests-questions-list">
+              {questions.slice(currentSection * 5, (currentSection + 1) * 5).map((q) => (
+                <div key={q.id} className="tests-question">
+                  <p className="tests-question-text">
+                    <span className="tests-question-number">{q.id}.</span> {q.question}
+                  </p>
+                  <div className="tests-options">
+                    {q.options.map((option, idx) => (
+                      <label key={idx} className="tests-option">
+                        <input
+                          type="radio"
+                          name={`question-${q.id}`}
+                          value={idx}
+                          checked={answers[q.id] === idx}
+                          onChange={() => handleAnswerChange(q.id, idx)}
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="tests-navigation">
-            <div className="tests-nav-buttons">
-              <button
-                onClick={() => setCurrentSection(prev => Math.max(0, prev - 1))}
-                disabled={currentSection === 0}
-                className="tests-nav-button"
-              >
-                <ChevronLeft /> Previous
-              </button>
-              <button
-                onClick={() => setCurrentSection(prev => Math.min(1, prev + 1))}
-                disabled={currentSection === 1}
-                className="tests-nav-button"
-              >
-                Next <ChevronRight />
-              </button>
+            <div className="tests-navigation">
+              <div className="tests-nav-buttons">
+                <button
+                  onClick={() => setCurrentSection(prev => Math.max(0, prev - 1))}
+                  disabled={currentSection === 0}
+                  className="tests-nav-button"
+                >
+                  <ChevronLeft /> Previous
+                </button>
+                <button
+                  onClick={() => setCurrentSection(prev => Math.min(1, prev + 1))}
+                  disabled={currentSection === 1}
+                  className="tests-nav-button"
+                >
+                  Next <ChevronRight />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {showReview && <ReviewPanel />}
       {showRules && <RulesPanel />}
+      {showResults && <ResultsPanel />}
     </div>
   );
 };
