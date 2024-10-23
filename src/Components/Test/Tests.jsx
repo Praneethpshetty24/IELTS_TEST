@@ -19,7 +19,7 @@ const Tests = () => {
   }, [timeLeft, showRules]);
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 340);
+    const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
@@ -142,18 +142,18 @@ The Romans also made significant contributions to science and technology. They d
     <div className="tests-container">
       <header className="tests-header">
         <h1>IELTS Reading Test</h1>
-        <p className="tests-subheader">Academic Module</p>
         <div className="tests-timer">
-        <button
-              onClick={() => setShowReview(true)}
-              className="tests-review-button"
-            >
-              <List size={16} /> Review Questions
-            </button>
           <Clock size={20} />
-          <span className={timeLeft < 300 ? 'time-warning' : ''}>
-            {formatTime(timeLeft)}
-          </span>
+          <span>{formatTime(timeLeft)}</span>
+        </div>
+        <div className="tests-header-buttons">
+          <button
+            onClick={() => setShowReview(true)}
+            className="tests-review-button"
+          >
+            <List size={16} /> Review Questions
+          </button>
+          <button>Submit</button>
         </div>
       </header>
       
