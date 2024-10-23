@@ -36,7 +36,6 @@ const Tests = () => {
 
   The Romans also made significant contributions to science and technology. They developed advanced construction techniques, including the use of concrete and the arch, which allowed them to build massive structures like the Colosseum and the Pantheon. They also made advances in medicine, agriculture, and urban planning.`;
 
-
   const questions = [
     {
       id: 1,
@@ -72,6 +71,39 @@ const Tests = () => {
       question: "The Roman Empire stretched from:",
       options: ['Spain to India', 'Britain to Egypt', 'Greece to Africa', 'France to Arabia'],
       answer: 1
+    },
+    {
+      id: 6,
+      type: 'dropdown',
+      question: "The Roman Empire's influence spread through:",
+      options: ['A. Roads', 'B. Laws', 'C. Trade', 'D. All of the above'],
+      answer: 3
+    },
+    {
+      id: 7,
+      type: 'dropdown',
+      question: "Roman architecture was influenced by:",
+      options: ['A. Greek culture', 'B. Egyptian pyramids', 'C. Mesopotamian temples', 'D. Chinese pagodas'],
+      answer: 0
+    },
+    {
+      id: 8,
+      type: 'dropdown',
+      question: "Roman contributions to modern law include:",
+      options: ['A. Jury trials', 'B. Legal codes', 'C. Law schools', 'D. All of the above'],
+      answer: 1
+    },
+    {
+      id: 9,
+      type: 'fill-in-the-blank',
+      question: "The Romans were known for their construction of __________, which helped connect their empire.",
+      answer: "roads"
+    },
+    {
+      id: 10,
+      type: 'fill-in-the-blank',
+      question: "The Roman army was known for being highly __________.",
+      answer: "disciplined"
     }
   ];
 
@@ -83,7 +115,12 @@ const Tests = () => {
   };
 
   const calculateScore = () => {
-    const correctAnswers = questions.filter((q) => answers[q.id] === q.answer).length;
+    const correctAnswers = questions.filter((q) => {
+      if (q.type === 'fill-in-the-blank') {
+        return answers[q.id]?.toLowerCase() === q.answer.toLowerCase();
+      }
+      return answers[q.id] === q.answer;
+    }).length;
     setScore(correctAnswers);
     setShowResults(true);
   };
@@ -208,7 +245,7 @@ const Tests = () => {
                     <span className="tests-question-number">{q.id}.</span> {q.question}
                   </p>
                   <div className="tests-options">
-                    {q.options.map((option, idx) => (
+                    {q.type === 'multiple-choice' && q.options.map((option, idx) => (
                       <label key={idx} className="tests-option">
                         <input
                           type="radio"
@@ -220,6 +257,25 @@ const Tests = () => {
                         <span>{option}</span>
                       </label>
                     ))}
+                    {q.type === 'dropdown' && (
+                      <select
+                        value={answers[q.id] || ''}
+                        onChange={(e) => handleAnswerChange(q.id, parseInt(e.target.value))}
+                      >
+                        <option value="" disabled>Select an answer</option>
+                        {q.options.map((option, idx) => (
+                          <option key={idx} value={idx}>{option}</option>
+                        ))}
+                      </select>
+                    )}
+                    {q.type === 'fill-in-the-blank' && (
+                      <input
+                        type="text"
+                        value={answers[q.id] || ''}
+                        onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                        placeholder="Enter your answer"
+                      />
+                    )}
                   </div>
                 </div>
               ))}
