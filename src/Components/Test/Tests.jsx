@@ -183,24 +183,16 @@ const Tests = () => {
       <div className="tests-review-panel">
         <div className="tests-review-header">
           <h2>Question Review</h2>
-          <button onClick={() => setShowReview(false)} className="tests-close-button">
-            <X size={24} />
-          </button>
         </div>
+        <button onClick={() => setShowReview(false)} className="tests-close-button">
+          <X size={24} />
+        </button>
         <div className="tests-question-grid">
           {questions.map((q) => (
-            <button
-              key={q.id}
-              className={`tests-question-button ${
-                answers[q.id] !== undefined ? 'answered' : ''
-              }`}
-              onClick={() => {
-                setCurrentSection(Math.floor((q.id - 1) / 5));
-                setShowReview(false);
-              }}
-            >
-              {q.id}
-            </button>
+            <div key={q.id} className={`tests-question-item ${answers[q.id] !== undefined ? 'answered' : ''}`}>
+              <span>Q{q.id}: {q.question}</span>
+              <span>Your answer: {answers[q.id] !== undefined ? (q.type === 'boolean-choice' ? q.options[answers[q.id]] : answers[q.id]) : 'Not attempted'}</span>
+            </div>
           ))}
         </div>
         <div className="tests-review-legend">
@@ -319,7 +311,7 @@ const Tests = () => {
                       className="tests-nav-button"
                       onClick={() => setCurrentSection((prev) => prev + 1)}
                     >
-                      Nex
+                      Next
                       <ChevronRight size={18} />
                     </button>
                   )}
