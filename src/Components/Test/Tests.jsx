@@ -143,6 +143,20 @@ const Tests = () => {
     );
   };
 
+  const renderBooleanQuestion = (question, questionId) => (
+    <select
+      value={answers[questionId] || ''}
+      onChange={(e) => handleAnswerChange(questionId, e.target.value)}
+    >
+      <option value="">Select an option</option>
+      {question.options.map((option, index) => (
+        <option key={index} value={index}>
+          {option}
+        </option>
+      ))}
+    </select>
+  );
+
   const RulesPanel = () => (
     <div className="tests-rules-overlay">
       <div className="tests-rules-panel">
@@ -265,24 +279,28 @@ const Tests = () => {
                         ? renderFillInTheBlankQuestion(question.question, question.id)
                         : question.question}
                     </div>
-                    {question.type !== 'fill-in-the-blank' && (
-                      <div className="tests-options">
-                        {question.options.map((option, optionIndex) => (
-                          <label
-                            key={optionIndex}
-                            className="tests-option"
-                            onClick={() => handleAnswerChange(question.id, optionIndex)}
-                          >
-                            <input
-                              type="radio"
-                              name={`question-${question.id}`}
-                              checked={answers[question.id] === optionIndex}
-                              onChange={() => handleAnswerChange(question.id, optionIndex)}
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
+                    {question.type === 'boolean-choice' ? (
+                      renderBooleanQuestion(question, question.id)
+                    ) : (
+                      question.type !== 'fill-in-the-blank' && (
+                        <div className="tests-options">
+                          {question.options.map((option, optionIndex) => (
+                            <label
+                              key={optionIndex}
+                              className="tests-option"
+                              onClick={() => handleAnswerChange(question.id, optionIndex)}
+                            >
+                              <input
+                                type="radio"
+                                name={`question-${question.id}`}
+                                checked={answers[question.id] === optionIndex}
+                                onChange={() => handleAnswerChange(question.id, optionIndex)}
+                              />
+                              {option}
+                            </label>
+                          ))}
+                        </div>
+                      )
                     )}
                   </div>
                 ))}
@@ -301,7 +319,7 @@ const Tests = () => {
                       className="tests-nav-button"
                       onClick={() => setCurrentSection((prev) => prev + 1)}
                     >
-                      Next
+                      Nex
                       <ChevronRight size={18} />
                     </button>
                   )}
