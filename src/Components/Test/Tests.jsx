@@ -16,7 +16,7 @@ const Tests = () => {
   useEffect(() => {
     if (timeLeft > 0 && !showRules && !showResults) {
       const timer = setInterval(() => {
-        setTimeLeft(prev => prev - 1);
+        setTimeLeft((prev) => prev - 1);
       }, 1000);
       return () => clearInterval(timer);
     }
@@ -25,7 +25,9 @@ const Tests = () => {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds
+      .toString()
+      .padStart(2, '0')}`;
   };
 
   const passage = `The Roman Empire was one of the largest and most influential civilizations in world history. At its height, it encompassed territories stretching from Britain to Egypt, from Spain to Iraq. The Romans were master builders and engineers, constructing vast networks of roads, aqueducts, and magnificent buildings, many of which still stand today.
@@ -42,75 +44,75 @@ const Tests = () => {
       type: 'multiple-choice',
       question: "What was a key factor in the Roman Empire's success?",
       options: ['Their navy', 'Their army', 'Their trade routes', 'Their agriculture'],
-      answer: 1
+      answer: 1,
     },
     {
       id: 2,
       type: 'multiple-choice',
-      question: "Roman soldiers were also:",
+      question: 'Roman soldiers were also:',
       options: ['Teachers', 'Builders', 'Merchants', 'Artists'],
-      answer: 1
+      answer: 1,
     },
     {
       id: 3,
       type: 'multiple-choice',
-      question: "The Romans adopted aspects of which culture?",
+      question: 'The Romans adopted aspects of which culture?',
       options: ['Persian', 'Egyptian', 'Greek', 'Chinese'],
-      answer: 2
+      answer: 2,
     },
     {
       id: 4,
       type: 'multiple-choice',
-      question: "What did Romans develop?",
+      question: 'What did Romans develop?',
       options: ['Paper', 'Glass', 'Concrete', 'Compass'],
-      answer: 2
+      answer: 2,
     },
     {
       id: 5,
       type: 'multiple-choice',
-      question: "The Roman Empire stretched from:",
+      question: 'The Roman Empire stretched from:',
       options: ['Spain to India', 'Britain to Egypt', 'Greece to Africa', 'France to Arabia'],
-      answer: 1
+      answer: 1,
     },
     {
       id: 6,
-      type: 'dropdown',
+      type: 'boolean-choice',
       question: "The Roman Empire's influence spread through:",
-      options: ['A. Roads', 'B. Laws', 'C. Trade', 'D. All of the above'],
-      answer: 3
+      options: ['True', 'False', 'Not Given'],
+      answer: 0,
     },
     {
       id: 7,
-      type: 'dropdown',
-      question: "Roman architecture was influenced by:",
-      options: ['A. Greek culture', 'B. Egyptian pyramids', 'C. Mesopotamian temples', 'D. Chinese pagodas'],
-      answer: 0
+      type: 'boolean-choice',
+      question: 'Roman architecture was influenced by Greek culture.',
+      options: ['True', 'False', 'Not Given'],
+      answer: 0,
     },
     {
       id: 8,
-      type: 'dropdown',
-      question: "Roman contributions to modern law include:",
-      options: ['A. Jury trials', 'B. Legal codes', 'C. Law schools', 'D. All of the above'],
-      answer: 1
+      type: 'boolean-choice',
+      question: 'Roman contributions to modern law include legal codes.',
+      options: ['True', 'False', 'Not Given'],
+      answer: 0,
     },
     {
       id: 9,
       type: 'fill-in-the-blank',
-      question: "The Romans were known for their construction of __________, which helped connect their empire.",
-      answer: "roads"
+      question: 'The Romans were known for their construction of _____, which helped connect their empire.',
+      answer: 'roads',
     },
     {
       id: 10,
       type: 'fill-in-the-blank',
-      question: "The Roman army was known for being highly __________.",
-      answer: "disciplined"
-    }
+      question: 'The Roman army was known for being highly _____.',
+      answer: 'disciplined',
+    },
   ];
 
   const handleAnswerChange = (questionId, answer) => {
-    setAnswers(prev => ({
+    setAnswers((prev) => ({
       ...prev,
-      [questionId]: answer
+      [questionId]: answer,
     }));
   };
 
@@ -123,6 +125,22 @@ const Tests = () => {
     }).length;
     setScore(correctAnswers);
     setShowResults(true);
+  };
+
+  const renderFillInTheBlankQuestion = (question, questionId) => {
+    const parts = question.split('_____');
+    return (
+      <>
+        {parts[0]}
+        <input
+          type="text"
+          value={answers[questionId] || ''}
+          onChange={(e) => handleAnswerChange(questionId, e.target.value)}
+          style={{ width: '100px', display: 'inline-block', margin: '0 5px' }}
+        />
+        {parts[1]}
+      </>
+    );
   };
 
   const RulesPanel = () => (
@@ -139,10 +157,7 @@ const Tests = () => {
             <li>Manage your time wisely - don't spend too long on one question</li>
           </ul>
         </div>
-        <button 
-          className="tests-start-button"
-          onClick={() => setShowRules(false)}
-        >
+        <button className="tests-start-button" onClick={() => setShowRules(false)}>
           Start Test
         </button>
       </div>
@@ -162,7 +177,9 @@ const Tests = () => {
           {questions.map((q) => (
             <button
               key={q.id}
-              className={`tests-question-button ${answers[q.id] !== undefined ? 'answered' : ''}`}
+              className={`tests-question-button ${
+                answers[q.id] !== undefined ? 'answered' : ''
+              }`}
               onClick={() => {
                 setCurrentSection(Math.floor((q.id - 1) / 5));
                 setShowReview(false);
@@ -191,121 +208,109 @@ const Tests = () => {
       <div className="tests-results-panel">
         <h2>Your Results</h2>
         <p>You answered {score} out of {questions.length} questions correctly.</p>
-        <button onClick={() => {
-          setShowResults(false);
-          setShowRules(true);
-          setAnswers({});
-          setTimeLeft(10 * 60);
-          setCurrentSection(0);
-          setScore(0);
-        }}>
+        <button
+          onClick={() => {
+            setShowResults(false);
+            setShowRules(true);
+            setAnswers({});
+            setTimeLeft(10 * 60);
+            setCurrentSection(0);
+            setScore(0);
+          }}
+        >
           Restart Test
         </button>
-        <button onClick={() => navigate('/')}>Back</button> {/* Corrected this line */}
       </div>
     </div>
   );
 
+  const currentQuestions = questions.slice(currentSection * 5, (currentSection + 1) * 5);
+
   return (
     <div className="tests-container">
-      <header className="tests-header">
-        <h1>IELTS Reading Test</h1>
-        <div className="tests-timer">
-          <Clock size={20} />
-          <span>{formatTime(timeLeft)}</span>
-        </div>
-        <div className="tests-header-buttons">
-          <button
-            onClick={() => setShowReview(true)}
-            className="tests-review-button"
-          >
-            <List size={16} /> Review Questions
-          </button>
-          <button onClick={calculateScore}>Submit</button>
-        </div>
-      </header>
-      
-      {!showResults && (
-        <div className="tests-content">
-          <div className="tests-passage">
-            <h2>Reading Passage</h2>
-            <div className="tests-passage-text">
-              {passage.split('\n\n').map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
-              ))}
+      {showRules && <RulesPanel />}
+      {showReview && <ReviewPanel />}
+      {showResults && <ResultsPanel />}
+      {!showRules && !showResults && (
+        <>
+          <div className="tests-header">
+            <h1>Reading Test</h1>
+            <div className="tests-header-buttons">
+              <button className="tests-review-button" onClick={() => setShowReview(true)}>
+                <List size={18} />
+                Review
+              </button>
+              <button className="tests-submit-button" onClick={calculateScore}>
+                Submit
+              </button>
+            </div>
+            <div className="tests-timer">
+              <Clock size={18} />
+              {formatTime(timeLeft)}
             </div>
           </div>
-
-          <div className="tests-questions">
-            <h2>Questions {currentSection * 5 + 1}-{Math.min((currentSection + 1) * 5, questions.length)}</h2>
-            <div className="tests-questions-list">
-              {questions.slice(currentSection * 5, (currentSection + 1) * 5).map((q) => (
-                <div key={q.id} className="tests-question">
-                  <p className="tests-question-text">
-                    <span className="tests-question-number">{q.id}.</span> {q.question}
-                  </p>
-                  <div className="tests-options">
-                    {q.type === 'multiple-choice' && q.options.map((option, idx) => (
-                      <label key={idx} className="tests-option">
-                        <input
-                          type="radio"
-                          name={`question-${q.id}`}
-                          value={idx}
-                          checked={answers[q.id] === idx}
-                          onChange={() => handleAnswerChange(q.id, idx)}
-                        />
-                        <span>{option}</span>
-                      </label>
-                    ))}
-                    {q.type === 'dropdown' && (
-                      <select
-                        value={answers[q.id] || ''}
-                        onChange={(e) => handleAnswerChange(q.id, parseInt(e.target.value))}
-                      >
-                        <option value="" disabled>Select an answer</option>
-                        {q.options.map((option, idx) => (
-                          <option key={idx} value={idx}>{option}</option>
+          <div className="tests-content">
+            <div className="tests-passage">
+              <h2>Passage</h2>
+              <div className="tests-passage-text">{passage}</div>
+            </div>
+            <div className="tests-questions">
+              <h2>Questions</h2>
+              <div className="tests-questions-list">
+                {currentQuestions.map((question, index) => (
+                  <div key={question.id} className="tests-question">
+                    <div className="tests-question-text">
+                      <span className="tests-question-number">{index + 1}. </span>
+                      {question.type === 'fill-in-the-blank'
+                        ? renderFillInTheBlankQuestion(question.question, question.id)
+                        : question.question}
+                    </div>
+                    {question.type !== 'fill-in-the-blank' && (
+                      <div className="tests-options">
+                        {question.options.map((option, optionIndex) => (
+                          <label
+                            key={optionIndex}
+                            className="tests-option"
+                            onClick={() => handleAnswerChange(question.id, optionIndex)}
+                          >
+                            <input
+                              type="radio"
+                              name={`question-${question.id}`}
+                              checked={answers[question.id] === optionIndex}
+                              onChange={() => handleAnswerChange(question.id, optionIndex)}
+                            />
+                            {option}
+                          </label>
                         ))}
-                      </select>
-                    )}
-                    {q.type === 'fill-in-the-blank' && (
-                      <input
-                        type="text"
-                        value={answers[q.id] || ''}
-                        onChange={(e) => handleAnswerChange(q.id, e.target.value)}
-                        placeholder="Enter your answer"
-                      />
+                      </div>
                     )}
                   </div>
+                ))}
+                <div className="tests-navigation">
+                  {currentSection > 0 && (
+                    <button
+                      className="tests-nav-button"
+                      onClick={() => setCurrentSection((prev) => prev - 1)}
+                    >
+                      <ChevronLeft size={18} />
+                      Previous
+                    </button>
+                  )}
+                  {currentSection < Math.ceil(questions.length / 5) - 1 && (
+                    <button
+                      className="tests-nav-button"
+                      onClick={() => setCurrentSection((prev) => prev + 1)}
+                    >
+                      Next
+                      <ChevronRight size={18} />
+                    </button>
+                  )}
                 </div>
-              ))}
-            </div>
-
-            <div className="tests-navigation">
-              <div className="tests-nav-buttons">
-                <button
-                  onClick={() => setCurrentSection(prev => Math.max(0, prev - 1))}
-                  disabled={currentSection === 0}
-                  className="tests-nav-button"
-                >
-                  <ChevronLeft /> Previous
-                </button>
-                <button
-                  onClick={() => setCurrentSection(prev => Math.min(1, prev + 1))}
-                  disabled={currentSection === 1}
-                  className="tests-nav-button"
-                >
-                  Next <ChevronRight />
-                </button>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
-
-      {showReview && <ReviewPanel />}
-      {showRules && <RulesPanel />}
-      {showResults && <ResultsPanel />}
     </div>
   );
 };
